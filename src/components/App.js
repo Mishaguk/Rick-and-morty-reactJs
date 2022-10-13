@@ -36,7 +36,7 @@ const App = () => {
   const [render, setRender] = useState([]);
   const [filter, setFilter] = useState('');
   const [prevPage, setPrevPage] = useState(10);
-  const [page, setPage] = useState(20);
+  const [page, setPage] = useState(10);
 
   const characterList = document.querySelector('.character-list');
 
@@ -57,7 +57,7 @@ const App = () => {
   };
 
   const updateRender = () => {
-    setRender((prev) => [...prev, ...filteredByName.slice(prevPage, page)]);
+    setRender(filteredByName.slice(0, page));
   };
 
   const sortByGrowth = () => {
@@ -117,6 +117,8 @@ const App = () => {
     setRender(characters.slice(0, 10));
 
     characterList.scrollTop = 0;
+    setPrevPage(10);
+    setPage(20);
   };
   const handleSelect = (e) => {
     if (e.target.value == 1) {
@@ -132,6 +134,7 @@ const App = () => {
   const changeFilter = (e) => {
     setFilter(e.target.value);
     setRender(filteredByName.slice(0, page));
+    console.log(filter);
   };
 
   const deleteCharacter = (id) => {
